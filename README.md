@@ -1,5 +1,7 @@
 # http-request
 
+[![Build Status](https://travis-ci.org/viknesh-nm/http-request.svg?branch=master)](https://travis-ci.org/viknesh-nm/http-request)
+
 http-request is a simple package written in go for getting the http request from the URL
 ## Installation
 
