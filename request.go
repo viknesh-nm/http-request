@@ -11,7 +11,7 @@ import (
 )
 
 // DoGetHTTPRequest sends a simple GET request from the URL and decodes the result
-func DoGetHTTPRequest(url string, result interface{}) error {
+func DoGetHTTPRequest(url string, showContents bool, result interface{}) error {
 	res, err := http.Get(url)
 	if err != nil {
 		return err
@@ -26,7 +26,11 @@ func DoGetHTTPRequest(url string, result interface{}) error {
 	if err != nil {
 		return err
 	}
-
+	
+	if showContents{
+		fmt.Println("Result:---->", string(contents))
+	}
+	
 	err = json.Unmarshal(contents, &result)
 	if err != nil {
 		return err
@@ -36,7 +40,7 @@ func DoGetHTTPRequest(url string, result interface{}) error {
 }
 
 // DoHTTPRequest sends a request using the http package and and decodes the response
-func DoHTTPRequest(method, path string, headers map[string]string, body io.Reader, result interface{}) error {
+func DoHTTPRequest(method, path string, headers map[string]string, body io.Reader, showContents bool, result interface{}) error {
 	method = strings.ToUpper(method)
 
 	req, err := http.NewRequest(method, path, body)
@@ -59,6 +63,10 @@ func DoHTTPRequest(method, path string, headers map[string]string, body io.Reade
 	contents, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+	
+	if showContents{
+		fmt.Println("Result:---->", string(contents))
 	}
 
 	err = json.Unmarshal(contents, &result)
