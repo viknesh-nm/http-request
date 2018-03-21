@@ -23,20 +23,20 @@ func TestDoGetHTTPRequest(t *testing.T) {
 	)
 	Convey("TestDoGetHTTPRequest testing process...", t, func() {
 		Convey("Check for success testResult", func() {
-			err = DoGetHTTPRequest(url, &result)
+			err = DoGetHTTPRequest(url, true, &result)
 			So(err, ShouldBeNil)
 			So(result.UserID, ShouldHaveSameTypeAs, 1)
 		})
 		Convey("Check for Invalid URL", func() {
-			err = DoGetHTTPRequest("url", &result1)
+			err = DoGetHTTPRequest("url", false, &result1)
 			So(err, ShouldNotBeNil)
 		})
 		Convey("Check for Invalid request", func() {
-			err = DoGetHTTPRequest(url+"DINGDONG", &result)
+			err = DoGetHTTPRequest(url+"DINGDONG", true, &result)
 			So(err, ShouldNotBeNil)
 		})
 		Convey("Check for JSON Unmarshalling", func() {
-			err = DoGetHTTPRequest(url, &result1)
+			err = DoGetHTTPRequest(url, false, &result1)
 			So(err, ShouldNotBeNil)
 		})
 	})
@@ -53,16 +53,16 @@ func TestDoHTTPRequest(t *testing.T) {
 	headers["Content-Type"] = "application/json"
 	Convey("TestDoGetHTTPRequest testing process...", t, func() {
 		Convey("Check for success testResult", func() {
-			err = DoHTTPRequest("get", url, headers, strings.NewReader(""), &result)
+			err = DoHTTPRequest("get", url, headers, strings.NewReader(""), true, &result)
 			So(err, ShouldBeNil)
 			So(result.UserID, ShouldHaveSameTypeAs, 1)
 		})
 		Convey("Check for Invalid URL", func() {
-			err = DoHTTPRequest("get", "url", nil, strings.NewReader(""), &result)
+			err = DoHTTPRequest("get", "url", nil, strings.NewReader(""), false, &result)
 			So(err, ShouldNotBeNil)
 		})
 		Convey("Check for JSON Unmarshalling", func() {
-			err = DoHTTPRequest("get", url, headers, strings.NewReader(""), &result1)
+			err = DoHTTPRequest("get", url, headers, strings.NewReader(""), false, &result1)
 			So(err, ShouldNotBeNil)
 		})
 	})
