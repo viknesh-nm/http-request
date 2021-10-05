@@ -32,7 +32,7 @@ func DoGetHTTPRequest(url string, showContents bool, result interface{}) error {
 		fmt.Println("Result:---->", string(contents))
 	}
 	
-	err = json.Unmarshal(contents, &result)
+	err = json.Unmarshal(contents, result)
 	if err != nil {
 		return err
 	}
@@ -70,7 +70,7 @@ func DoHTTPRequest(method, path string, headers map[string]string, body io.Reade
 		fmt.Println("Result:---->", string(contents))
 	}
 
-	err = json.Unmarshal(contents, &result)
+	err = json.Unmarshal(contents, result)
 	if err != nil {
 		return err
 	}
